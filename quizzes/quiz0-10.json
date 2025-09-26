@@ -1,0 +1,13 @@
+[
+    { "question": "Zero (0)", "answer": "ゼロ" },
+    { "question": "One (1)", "answer": "いち" },
+    { "question": "Two (2)", "answer": "に" },
+    { "question": "Three (3)", "answer": "さん" },
+    { "question": "Four (4)", "answer": "よん"},
+    { "question": "Five (5)", "answer": "ご" },
+    { "question": "Six (6)", "answer": "ろく" },
+    { "question": "Seven (7)", "answer": "なな" },
+    { "question": "Eight (8)", "answer": "はち"},
+    { "question": "Nine (9)", "answer": "きゅう" },
+    { "question": "Ten (10)", "answer": "じゅう" }
+]
