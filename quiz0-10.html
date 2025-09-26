@@ -8,14 +8,19 @@
 <body>
   <h1>Numbers 0-10 Quiz</h1>
 
-  <!-- Start button -->
+  <!-- Question area -->
+  <p id="question">Click Start to begin!</p>
+
+  <!-- Answer input -->
+  <input type="text" id="answer" placeholder="Your answer" style="display: none;">
+
+  <!-- Feedback -->
+  <p id="feedback"></p>
+
+  <!-- Buttons -->
   <button id="start-btn">Start Quiz</button>
-
-  <!-- Quiz area -->
-  <div id="quiz-container"></div>
-
-  <!-- Submit button (hidden until quiz starts) -->
-  <button id="submit-btn" style="display: none;">Submit Answers</button>
+  <button id="submit-btn" style="display: none;">Submit Answer</button>
+  <button id="restart-btn" style="display: none;">Restart Quiz</button>
 
   <script src="script.js"></script>
 </body>

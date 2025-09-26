@@ -1,4 +1,9 @@
-// Shuffle function
+let questions = [];            
+let randomizedQuestions = [];
+let currentQuestionIndex = 0;
+let score = 0;
+
+// Shuffle function (Fisher–Yates)
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -7,44 +12,83 @@ function shuffle(array) {
   return array;
 }
 
-let randomizedQuestions = [];
-
-// Start quiz
-function startQuiz() {
-  randomizedQuestions = shuffle([...questions]); // copy + shuffle
-  const quizContainer = document.getElementById("quiz-container");
-  quizContainer.innerHTML = "";
-
-  randomizedQuestions.forEach((q, index) => {
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <p>Q${index + 1}: ${q.question}</p>
-      <input type="text" id="answer-${index}" placeholder="Your answer">
-      <span id="feedback-${index}"></span>
-    `;
-    quizContainer.appendChild(div);
-  });
-
-  // Show submit button
-  document.getElementById("submit-btn").style.display = "block";
+// Load questions from JSON before quiz starts
+function loadQuestions() {
+  return fetch("questions.json")
+    .then(response => response.json())
+    .then(data => {
+      questions = data;
+    })
+    .catch(err => {
+      console.error("Error loading questions:", err);
+      document.getElementById("question").textContent = "⚠️ Failed to load quiz.";
+    });
 }
 
-// Check answers
-function checkAnswers() {
-  randomizedQuestions.forEach((q, index) => {
-    const userAnswer = document.getElementById(`answer-${index}`).value.trim();
-    const feedback = document.getElementById(`feedback-${index}`);
+function startQuiz() {
+  if (questions.length === 0) {
+    loadQuestions().then(() => {
+      beginQuiz();
+    });
+  } else {
+    beginQuiz();
+  }
+}
 
-    if (userAnswer.toLowerCase() === q.answer.toLowerCase()) {
-      feedback.textContent = " ✅ Correct!";
-      feedback.style.color = "green";
+function beginQuiz() {
+  randomizedQuestions = shuffle([...questions]);
+  currentQuestionIndex = 0;
+  score = 0; // reset score
+
+  document.getElementById("answer").style.display = "inline-block";
+  document.getElementById("submit-btn").style.display = "inline-block";
+  document.getElementById("restart-btn").style.display = "none";
+
+  loadQuestion();
+}
+
+function loadQuestion() {
+  const q = randomizedQuestions[currentQuestionIndex];
+  document.getElementById("question").textContent = q.question;
+  document.getElementById("answer").value = "";
+  document.getElementById("feedback").textContent = "";
+}
+
+function checkAnswer() {
+  const userAnswer = document.getElementById("answer").value.trim();
+  const correct = randomizedQuestions[currentQuestionIndex].answer;
+
+  if (userAnswer.toLowerCase() === correct.toLowerCase()) {
+    document.getElementById("feedback").textContent = "✅ Correct!";
+    document.getElementById("feedback").style.color = "green";
+    score++; // add to score
+  } else {
+    document.getElementById("feedback").textContent =
+      `❌ Incorrect. The correct answer is: ${correct}`;
+    document.getElementById("feedback").style.color = "red";
+  }
+
+  setTimeout(() => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < randomizedQuestions.length) {
+      loadQuestion();
     } else {
-      feedback.textContent = ` ❌ Incorrect (Answer: ${q.answer})`;
-      feedback.style.color = "red";
+      endQuiz();
     }
-  });
+  }, 1500);
+}
+
+function endQuiz() {
+  const total = randomizedQuestions.length;
+  document.getElementById("question").textContent = "🎉 Quiz complete!";
+  document.getElementById("answer").style.display = "none";
+  document.getElementById("submit-btn").style.display = "none";
+  document.getElementById("feedback").textContent = `Your score: ${score}/${total}`;
+  document.getElementById("feedback").style.color = "blue";
+  document.getElementById("restart-btn").style.display = "inline-block";
 }
 
 // Event listeners
 document.getElementById("start-btn").addEventListener("click", startQuiz);
-document.getElementById("submit-btn").addEventListener("click", checkAnswers);
+document.getElementById("submit-btn").addEventListener("click", checkAnswer);
+document.getElementById("restart-btn").addEventListener("click", startQuiz);
