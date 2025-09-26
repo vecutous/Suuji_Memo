@@ -69,10 +69,9 @@ function startQuiz() {
       <span id="feedback-${index}"></span>
     `;
     quizContainer.appendChild(div);
-  });
+    document.getElementById("submit-btn").style.display = "block";
 
-  // Show submit button
-  document.getElementById("submit-btn").style.display = "block";
+  });
 }
 
 // Check answers
