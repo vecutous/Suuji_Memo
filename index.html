@@ -1,26 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Suuji Memo</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
 <body>
-    <h1>Suuji Memo</h1>
-    <p>Welcome to Suuji Memory! In this website, you can study Japanese numbers 1-100,000 as much as you'd like.</p>
-    <p><em>This project was made by vecutous. It is actively in development, so please contact @schory on Instagram if you encounter any issues, or have suggestions.</em></p>
+  <h1>Japanese Quiz</h1>
 
-    <div class="button-container">
-        <a class="quiz-button" href="quiz0-10.html">Numbers 0-10</a>
-        <a class="quiz-button" href="quiz10-100.html">Numbers 10-100</a>
-        <a class="quiz-button" href="quiz100-1000.html">Numbers 100-1000</a>
-    </div>
+  <!-- Quiz selector -->
+  <label for="quiz-select">Choose a quiz:</label>
+  <select id="quiz-select">
+    <option value="quizzes/quiz0-10.json">Numbers 0–10</option>
+    <option value="quizzes/quiz10-100.json">Numbers 10-100</option>
+    <option value="quizzes/quiz100-1000.json">Numbers 100-1000</option>
+  </select>
 
-    <footer>
-        <p>
-            Need help typing in Japanese? 
-            <a href="keyboard-tutorial.html">Click here to learn how to install a Japanese keyboard on your OS</a>
-        </p>
-    </footer>
+  <!-- Question area -->
+  <p id="question">Click Start to begin!</p>
+
+  <!-- Answer input -->
+  <input type="text" id="answer" placeholder="Your answer" style="display: none;">
+
+  <!-- Feedback -->
+  <p id="feedback"></p>
+
+  <!-- Buttons -->
+  <button id="start-btn">Start Quiz</button>
+  <button id="submit-btn" style="display: none;">Submit Answer</button>
+  <button id="restart-btn" style="display: none;">Restart Quiz</button>
+
+  <script src="script.js"></script>
 </body>
-</html>
