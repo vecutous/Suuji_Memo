@@ -43,4 +43,21 @@ function checkAnswer() {
             document.querySelector("button").style.display = "none";
         }
     }, 2000);
+
+// Fisher–Yates shuffle function
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1)); // pick a random index
+    [array[i], array[j]] = [array[j], array[i]];   // swap elements
+  }
+  return array;
+}
+
+// Shuffle the questions before using them
+let randomizedQuestions = shuffle(questions);
+
+// Example of showing the questions in random order
+randomizedQuestions.forEach((q, index) => {
+  console.log(`Q${index + 1}: ${q.question}`);
+});
 }

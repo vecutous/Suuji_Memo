@@ -6,20 +6,17 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>🔢 Numbers Quiz (1–10)</h1>
-    <div id="quiz-box">
-        <p id="question">Loading question...</p>
-        <input type="text" id="answer" placeholder="Type your answer here">
-        <button onclick="checkAnswer()">Submit</button>
-        <p id="feedback"></p>
-    </div>
+  <h1>Numbers 0-10 Quiz</h1>
 
-    <!-- JavaScript files -->
-    <script src="script.js"></script>
-    <script>
-        window.onload = () => {
-            loadQuizData("quizzes/quiz0-10.json");
-        };
-    </script>
+  <!-- Start button -->
+  <button id="start-btn">Start Quiz</button>
+
+  <!-- Quiz area -->
+  <div id="quiz-container"></div>
+
+  <!-- Submit button (hidden until quiz starts) -->
+  <button id="submit-btn" style="display: none;">Submit Answers</button>
+
+  <script src="script.js"></script>
 </body>
 </html>
