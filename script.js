@@ -56,23 +56,19 @@ function shuffle(array) {
 let randomizedQuestions = [];
 
 // Start the quiz
-function startQuiz() {
-  randomizedQuestions = shuffle([...questions]); // copy + shuffle
-  const quizContainer = document.getElementById("quiz-container");
-  quizContainer.innerHTML = "";
+randomizedQuestions.forEach((q, index) => {
+  const div = document.createElement("div");
+  div.innerHTML = `
+    <p>Q${index + 1}: ${q.question}</p>
+    <input type="text" id="answer-${index}" placeholder="Your answer">
+    <span id="feedback-${index}"></span>
+  `;
+  quizContainer.appendChild(div);
+});
 
-  randomizedQuestions.forEach((q, index) => {
-    const div = document.createElement("div");
-    div.innerHTML = `
-      <p>Q${index + 1}: ${q.question}</p>
-      <input type="text" id="answer-${index}" placeholder="Your answer">
-      <span id="feedback-${index}"></span>
-    `;
-    quizContainer.appendChild(div);
-    document.getElementById("submit-btn").style.display = "block";
+// ✅ only once after all questions are rendered
+document.getElementById("submit-btn").style.display = "block";
 
-  });
-}
 
 // Check answers
 function checkAnswers() {
